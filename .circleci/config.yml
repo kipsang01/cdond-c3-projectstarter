@@ -82,12 +82,12 @@ jobs:
       - checkout
       - restore_cache:
           keys: [backend-build]
-      - run
-        name: scan backend
-        command: |
-          cd backend
-          npm install
-          npm audit --audit-level=critical
+      - run:
+          name: scan backend
+          command: |
+            cd backend
+            npm install
+            npm audit --audit-level=critical
 workflows:
   default:
     jobs:
