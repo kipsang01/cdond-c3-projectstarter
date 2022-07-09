@@ -295,5 +295,3 @@ workflows:
           requires: [smoke-test]
       - cleanup:
           requires: [cloudfront-update]
-
-database-1.ccmttxmr5g2a.us-east-1.rds.amazonaws.com
