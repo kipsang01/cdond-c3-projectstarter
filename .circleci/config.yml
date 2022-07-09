@@ -184,7 +184,28 @@ jobs:
             # curl https://kvdb.io/9GE4jRtKznmVKRfvdBABBe/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
             curl -X POST https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/3cg7aby9/yourkey/yourvalue(output, 1) 
             fi
-      - destroy-environment     
+      - destroy-environment:
+          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
+  # deploy-frontend:
+  #   docker:
+  #     -image: amazon/aws-cli
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: Install dependencies
+  #         command: |
+  #           # your code here
+  #     - run:
+  #         name: Get backend url
+  #         command: |
+  #           # your code here
+  #           export API_URL="http://${BACKEND_IP}:3030"
+  #           echo "${API_URL}"
+  #     - run:
+  #         name: Deploy frontend objects
+  #         command: |
+  #           # your code here
+      # Here's where you will add some code to rollback on failure       
 
 workflows:
   default:
