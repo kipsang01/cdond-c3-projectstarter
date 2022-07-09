@@ -157,7 +157,7 @@ jobs:
       - add_ssh_keys:
           fingerprints: ["f6:79:5d:d1:c1:42:e7:e1:9b:90:75:c4:12:94:ea:40"]
       - attach_workspace:
-          at: .
+          at: ~/
       - run:
           name: Install dependencies
           command: |
@@ -166,6 +166,7 @@ jobs:
       - run:
           name: Configure server
           command: |
+            cd .circleci/ansible
             ansible-playbook -i inventory.txt configure-server.yml
       - destroy-environment 
   run-migrations:
@@ -228,7 +229,7 @@ jobs:
       - add_ssh_keys:
           fingerprints: ["f6:79:5d:d1:c1:42:e7:e1:9b:90:75:c4:12:94:ea:40"]
       - attach_workspace:
-          at: .
+          at: ~/
       - run:
           name: Install dependencies
           command: |
@@ -263,7 +264,7 @@ jobs:
           command: |
             apk add --update --no-cache curl aws-cli tar gzip nodejs npm
       - attach_workspace:
-          at: .
+          at: ~/
       - run:
           name: Get backend url
           command: |
