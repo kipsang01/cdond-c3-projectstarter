@@ -1,5 +1,12 @@
 version: 2.1
 
+parameters:
+  cci_wait_timeout:
+      default: 1200
+      description: |
+        The wait timeout for the step to complete. The string is a decimal with unit suffix, such as “20m”, “1.25h”, “5s” (default: 10 minutes)
+      type: integer
+
 commands:
   destroy-environment:
     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
