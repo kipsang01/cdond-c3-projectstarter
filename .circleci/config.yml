@@ -293,7 +293,7 @@ jobs:
               return 1
             else
               return 1
-              
+
             fi
       - destroy-environment 
 
@@ -323,5 +323,5 @@ workflows:
           requires: [run-migrations]
       - deploy-backend:
           requires: [run-migrations]
-      - smoke-test:
+      - smoke-tesst:
           requires: [deploy-backend, deploy-frontend]
