@@ -208,10 +208,6 @@ jobs:
       - attach_workspace:
           at: ~/
       - run:
-          name: Install tar utility
-          command: |
-            yum install -y tar gzip
-      - run:
           name: Install dependencies
           command: |
             sudo apt-get update && sudo apt-get install -yy less
@@ -243,10 +239,6 @@ jobs:
           fingerprints: ["f6:79:5d:d1:c1:42:e7:e1:9b:90:75:c4:12:94:ea:40"]
       - attach_workspace:
           at: ~/
-      - run:
-          name: Install tar utility
-          command: |
-            yum install -y tar gzip
       - run:
           name: Install zip
           command: |
