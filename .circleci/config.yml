@@ -208,6 +208,10 @@ jobs:
       - attach_workspace:
           at: ~/
       - run:
+          name: Install tar utility
+          command: |
+            yum install -y tar gzip
+      - run:
           name: Install dependencies
           command: |
             sudo apt-get update && sudo apt-get install -yy less
@@ -240,11 +244,34 @@ jobs:
       - attach_workspace:
           at: ~/
       - run:
-          name: Install dependencies
+          name: Install tar utility
           command: |
-            apk add --update ansible curl rsync openssh nodejs npm
-            ansible --version
+            yum install -y tar gzip
+      - run:
+          name: Install zip
+          command: |
+            apk add --update zip unzip
+      - run:
+          name: Install curl
+          command: |
+            apk add --update curl
+      - run:
+          name: Install ansible
+          working_directory: ./.circleci/ansible
+          command: |
+            apk add --update ansible 
+      - run:
+          name: Install aws cli
+          command: |
             pip install awscli
+      - run:
+          name: Install nodejs
+          command: |
+            apk add --update nodejs
+      - run:
+          name: Install npm
+          command: |
+            apk add --update npm openssh rsync
       - run:
           name: Deploy backend
           command: |
