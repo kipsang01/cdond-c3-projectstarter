@@ -10,14 +10,14 @@
     dest: /home/ubuntu/udaappdir
 
 - name: Install unzip
-  become: yes
+  become: true
   apt:
     name: unzip
     state: present
 
 # Extract the zipped artifact into the EC2 instance, and then start the app.
 - name: extract artifact
-  become: yes
+  become: true
   shell: |
     cd /home/ubuntu/udaappdir
     unzip /home/ubuntu/udaappdir/dist.zip
