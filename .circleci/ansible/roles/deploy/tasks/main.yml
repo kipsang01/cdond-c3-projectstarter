@@ -21,14 +21,9 @@
   shell: |
     cd /home/ubuntu/udaappdir
     unzip /home/ubuntu/udaappdir/dist.zip
-    sudo apt install curl
-    curl -sL https://deb.nodesource.com/setup_6.x | sudo bash -
-    sudo apt-get install -y nodejs
-    sudo apt-get install -y npm
     npm install
-    sudo npm install pm2@latest -g
-    sudo pm2 stop default
-    sudo pm2 start -f ./main.js
+    pm2 stop default
+    pm2 start npm -- start
   environment:
     NODE_ENV: production
     ENVIRONMENT: production
