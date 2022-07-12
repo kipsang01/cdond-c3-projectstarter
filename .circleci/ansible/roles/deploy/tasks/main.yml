@@ -38,13 +38,13 @@
 - name: Upload artifact
   copy:
     src: ~/project/.circleci/ansible/roles/deploy/files/dist.zip
-    dest: /home/ubuntu/udaappdir
+    dest: /home/ubuntu
 
 - name: extract artifact
   become: true
   shell: |
-    cd /home/ubuntu/udaappdir
-    unzip /home/ubuntu/udaappdir/dist.zip
+    cd /home/ubuntu
+    unzip /home/ubuntu/dist.zip
     pm2 stop default
     pm2 start npm -- start
   environment:
