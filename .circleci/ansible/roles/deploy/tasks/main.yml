@@ -53,6 +53,7 @@
       register: src_info
 
 - name: Upload artifact
+  become: yes
   copy:
     src: files/artifact.tar.gz
     dest: /project/udaapp/artifact.tar.gz
