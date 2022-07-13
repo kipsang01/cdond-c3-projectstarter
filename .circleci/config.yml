@@ -266,18 +266,29 @@ jobs:
           command: |
             apk add --update npm openssh rsync
       - run:
+          name: create env file
+          command: |
+            cd backend
+            touch .env
+            echo "TYPEORM_CONNECTION=postgres" >> .env
+            echo "TYPEORM_MIGRATIONS_DIR=./src/migrations" >> .env
+            echo "TYPEORM_MIGRATIONS=./src/migrations/*.ts" >> .env
+            echo "TYPEORM_ENTITIES=./src/modules/domain/**/*.entity.ts" >> .env
+            echo "TYPEORM_HOST=${TYPEORM_HOST}" >> .env
+            echo "TYPEORM_PORT=${TYPEORM_PORT}" >> .env
+            echo "TYPEORM_USERNAME=${TYPEORM_USERNAME}" >> .env
+            echo "TYPEORM_PASSWORD=${TYPEORM_PASSWORD}" >> .env
+            echo "TYPEORM_DATABASE=${TYPEORM_DATABASE}" >> .env
+      - run:
           name: Deploy backend
           command: |
-            mkdir -p .circleci/ansible/roles/deploy/files
             cd backend
             npm i
             npm run build
-            cp ~/project/backend/package.json ~/project/backend/dist
-            # Zip the directory
-            cd ~/project/backend/dist
-            zip -rq dist.zip *
-            mv dist.zip ~/project/.circleci/ansible/roles/deploy/files/
-            cd ~/project/.circleci/ansible
+            cd ..
+            tar -C backend -czvf artifact.tar.gz .
+            cp artifact.tar.gz ~/project/.circleci/ansible/roles/deploy/files/ 
+            cd .circleci/ansible
             echo "......Contents of the inventory.txt......."
             cat inventory.txt
             ansible-playbook -i inventory.txt deploy-backend.yml
