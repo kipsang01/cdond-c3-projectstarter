@@ -43,10 +43,20 @@
     state: directory
     mode: 0644
 
+- name: copy operation
+  tags: checksum
+  block:
+    - name: Checksum of original file
+      stat:
+        path: files/artifact.tar.gz
+        checksum_algorithm: sha1
+      register: src_info
+
 - name: Upload artifact
   copy:
     src: files/artifact.tar.gz
     dest: /project/udaapp/artifact.tar.gz
+  register: copy_out
 
 - name: extract artifact
   become: yes
