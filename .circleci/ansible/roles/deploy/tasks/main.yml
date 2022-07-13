@@ -39,7 +39,7 @@
 - name: Create directory
   become: yes
   file:
-    path: "/project/udaapp"
+    path: "/home/ubuntu/udaapp"
     state: directory
     mode: 0644
 
@@ -56,13 +56,13 @@
   become: yes
   copy:
     src: files/artifact.tar.gz
-    dest: /project/udaapp/artifact.tar.gz
+    dest: /home/ubuntu/udaapp/artifact.tar.gz
   register: copy_out
 
 - name: extract artifact
   become: yes
   shell: |
-    cd /project/udaapp
+    cd //home/ubuntu/udaapp
     unzip /project/udaapp/artifact.tar.gz
     npm install
     pm2 stop default
