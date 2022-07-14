@@ -434,34 +434,34 @@ workflows:
           requires: [deploy-infrastructure]
           filters:
             branches:
-              only: [test-feature-branch]
+              only: [master]
       - run-migrations:
           requires: [configure-infrastructure]
           filters:
             branches:
-              only: [test-feature-branch]
+              only: [master]
       - deploy-frontend:
           requires: [run-migrations]
           filters:
             branches:
-              only: [test-feature-branch]
+              only: [master]
       - deploy-backend:
           requires: [run-migrations]
           filters:
             branches:
-              only: [test-feature-branch]
+              only: [master]
       - smoke-test:
           requires: [deploy-backend, deploy-frontend]
           filters:
             branches:
-              only: [test-feature-branch]
+              only: [master]
       - cloudfront-update:
           requires: [smoke-test]
           filters:
             branches:
-              only: [test-feature-branch]
+              only: [master]
       - cleanup:
           requires: [cloudfront-update]
           filters:
             branches:
-              only: [test-feature-branch]
+              only: [master] 
