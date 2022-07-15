@@ -35,7 +35,7 @@ commands:
           name: Revert migrations
           when: on_fail
           command: |
-            export SUCCESS=$(curl https://kvdb.io/WwGUim6NGEvEcW7BimEnu9/migration_${CIRCLE_WORKFLOW_ID:0:7})
+            export SUCCESS=$(curl -k https://kvdb.io/WwGUim6NGEvEcW7BimEnu9/migration_${CIRCLE_WORKFLOW_ID:0:7})
             if (($SUCCESS == 1)); then
               echo "Reverting migrations..."
               cd ~/project/backend
@@ -219,9 +219,9 @@ jobs:
           command: |
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
-              curl https://kvdb.io/WwGUim6NGEvEcW7BimEnu9/migration_${CIRCLE_WORKFLOW_ID:0:7} -d '1'
+              curl -k https://kvdb.io/WwGUim6NGEvEcW7BimEnu9/migration_${CIRCLE_WORKFLOW_ID:0:7} -d '1'
             else
-              curl https://kvdb.io/WwGUim6NGEvEcW7BimEnu9/migration_${CIRCLE_WORKFLOW_ID:0:7} -d '0'
+              curl -k https://kvdb.io/WwGUim6NGEvEcW7BimEnu9/migration_${CIRCLE_WORKFLOW_ID:0:7} -d '0'
             fi
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
@@ -377,7 +377,7 @@ jobs:
           command: |
             aws cloudformation deploy \
               --template-file .circleci/files/cloudfront.yml \
-              --stack-name CloudfrontStack \
+              --stack-name InitialStack \
               --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:7}" \
               --tags project=udapeople
             echo "Cloudfront distribution updated"
