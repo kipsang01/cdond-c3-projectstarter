@@ -194,9 +194,25 @@ jobs:
       - run:
           name: Configure server
           command: |
+            touch backend/.env
+            echo NODE_ENV=production >> backend/.env
+            echo TYPEORM_CONNECTION=postgres >> backend/.env
+            echo TYPEORM_MIGRATIONS_DIR=/home/ubuntu/udaapp/migrations  >> backend/.env
+            echo TYPEORM_MIGRATIONS=/home/ubuntu/udaapp/migrations/*.js >> backend/.env
+            echo TYPEORM_ENTITIES=/home/ubuntu/udaapp/modules/domain/**/*.entity.js >> backend/.env
+            echo TYPEORM_HOST=database-1.ccmttxmr5g2a.us-east-1.rds.amazonaws.com >> backend/.env
+            echo TYPEORM_PORT=5432 >> backend/.env
+            echo TYPEORM_USERNAME=postgres >> backend/.env
+            echo TYPEORM_PASSWORD=mypassword >> backend/.env
+            echo TYPEORM_DATABASE=postgres >> backen/.env
+            cat backend/.env
             cd .circleci/ansible
             cat inventory.txt
             ansible-playbook -i inventory.txt configure-server.yml
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project/backend/.env
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
 
@@ -207,6 +223,8 @@ jobs:
       - checkout
       - restore_cache:
           keys: [backend-build]
+      - attach_workspace:
+          at: ~/
       - run:
           name: Run migrations
           command: |
@@ -223,6 +241,10 @@ jobs:
             else
               curl -k https://kvdb.io/WwGUim6NGEvEcW7BimEnu9/migration_${CIRCLE_WORKFLOW_ID:0:7} -d '0'
             fi
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project/backend/.env
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
   deploy-frontend:
