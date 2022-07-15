@@ -68,7 +68,7 @@
     TYPEORM_CONNECTION: "{{ lookup('env','TYPEORM_CONNECTION') }}"
     TYPEORM_MIGRATIONS_DIR: /home/ubuntu/udaapp/migrations 
     TYPEORM_MIGRATIONS: /home/ubuntu/udaapp/migrations/*.js
-    TYPEORM_ENTITIES: /home/ubuntu/udaapp/modules/**/*.entity{.ts,.js}
+    TYPEORM_ENTITIES: /home/ubuntu/udaapp/modules/domain/**/*.entity.js
     TYPEORM_HOST: "{{ lookup('env','TYPEORM_HOST') }}"
     TYPEORM_PORT: "{{ lookup('env','TYPEORM_PORT') }}"
     TYPEORM_USERNAME: "{{ lookup('env','TYPEORM_USERNAME') }}"
