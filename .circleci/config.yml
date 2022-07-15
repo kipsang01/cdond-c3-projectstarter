@@ -42,12 +42,9 @@ commands:
               npm install
               npm run migrations:revert
             else
+              echo "$SUCCESS"
               echo "No migrations to revert."
             fi
-            cd ~/project/backend
-            npm install
-            npm run build
-            npm run migrations:revert
                        
 jobs:
   build-frontend:
@@ -223,6 +220,8 @@ jobs:
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
               curl https://kvdb.io/WwGUim6NGEvEcW7BimEnu9/migration_${CIRCLE_WORKFLOW_ID:0:7} -d '1'
+            else
+              curl https://kvdb.io/WwGUim6NGEvEcW7BimEnu9/migration_${CIRCLE_WORKFLOW_ID:0:7} -d '0'
             fi
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
