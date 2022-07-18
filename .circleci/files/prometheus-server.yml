@@ -23,21 +23,10 @@ Parameters:
     Description: This is your local IP address, it will be used to configure security group ingress
     Type: String
     Default: 0.0.0.0/0
-  AuthEmail:
-    Description: This is the email (Gmail only!) you will use to authenticate the account
+  SlackUrl:
+    Description: Slack api link for sending notifications
     Type: String
-  EmailPassword:
-    Description: |
-      This is the app password for your gmail account.
-      Get one here https://support.google.com/accounts/answer/185833?hl=en
-    Type: String
-  FromEmail:
-    Description: This is the email to send alerts from (usually same as AuthEmail)
-    Type: String
-  ToEmail:
-    Description: The recipient email for alerts
-    Type: String
-
+    Default: https://hooks.slack.com/services/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
 Resources:
   # Security groups
   myWebServerSecurityGroup:
