@@ -148,7 +148,6 @@ Resources:
           echo "    --storage.tsdb.path /var/lib/prometheus/ \" >> /etc/systemd/system/prometheus.service
           echo "    --web.console.templates=/etc/prometheus/consoles \" >> /etc/systemd/system/prometheus.service
           echo "    --web.console.libraries=/etc/prometheus/console_libraries" >> /etc/systemd/system/prometheus.service
-
           echo "[Install]" >> /etc/systemd/system/prometheus.service
           echo "WantedBy=multi-user.target" >> /etc/systemd/system/prometheus.service
           sudo touch /etc/prometheus/alertmanager.yml
