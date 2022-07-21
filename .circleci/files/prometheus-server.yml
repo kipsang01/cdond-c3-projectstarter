@@ -1,6 +1,6 @@
 Description: |
   This template deploys prometheus in the VPC vpc-0492b2b84bd1a3194 (us-west-1)
-  To execute please run this:
+  To execute please run:
   aws cloudformation deploy --stack-name prometheus --template-file ${ThisFile.yml} --capabilities CAPABILITY_IAM \
   --parameter-overrides AuthEmail=${YourGmailAddress} EmailPassword=${YourGmailPassword} FromEmail=${YourEmail} ToEmail=${AnyEmailDestination} \
   VPC=${YourVPC} AZ=${YourAZ} Subnet=${YourSubnet}
